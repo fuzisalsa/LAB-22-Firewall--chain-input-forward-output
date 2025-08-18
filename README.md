@@ -1,7 +1,7 @@
 # LAB-22-Firewall---chain-input-forward-output
 tanggal 16 Agustus 
 
-![m]()
+![m](POPOP.PNG)
 
 # Firewall – chain input, forward, output 
 
