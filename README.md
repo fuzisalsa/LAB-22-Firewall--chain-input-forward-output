@@ -10,51 +10,38 @@ tanggal 16 Agustus
 **Output** → Mengatur koneksi yang keluar dari router itu sendiri.   
 
 # Langkah Konfigurasi Firewall di Mikrotik
-1. Blokir PC agar tidak bisa akses Router (CLI/GUI)
+1. Lakukan konfigurasi awal Mikrotik seperti membuat IP Static, DHCP Client, DHCP Server, dan NAT.
+   Sampai Laptop terhubung dan bisa mengakses internet.
 
-```bash
-/ip firewall filter add chain=input src-address=IP_PC action=drop comment="Block PC access to router"
-```
+2. Setting DHCP static lease agar IP tidak berubah.
 
-Contoh:
+  /ip dhcp-server lease add address=192.168.10.104 mac-address=00:90:F5:C7:5C:5C  
 
-```bash
-/ip firewall filter add chain=input src-address=192.168.1.2 action=drop
-```
+3. Setting firewall rules di IP > FIREWALL > FILTER.
 
-* Laptop tidak diblokir, sehingga tetap bisa akses router.
+![m](ahhh.PNG)
 
-2. Izinkan Akses Internet untuk semua bagi pc dan laptop Kecuali Situs Tertentu
-    situs `lms.rosctock.net` diblokir.
+4. Tambahkan domain ke address list
+ 
+![m](wwwe.PNG)
+
+5. Lalu block di forward 
+ 
+![m](TLTLTL.PNG)
+
+6. Sekarang buat agar semua IP client & situs yang diakses masuk address-list. IP > FIREWALL > FILTER RULES.
+
+![m](DLDL1.PNG)
+
+7. Buat agar semua aktivitas client tercatat di IP > FIREWALL > address-list.
    
-```bash
-/ip firewall filter add chain=forward dst-address-list=blocked-sites action=drop comment="Block specific sites"
-/ip firewall address-list add list=blocked-sites address=lms.rosctock.net
-```
+![m](DLDL2.PNG)
 
-3. Dokumentasikan IP dan DNS yang Diuji Router
 
-```bash
-/ip firewall address-list add list=log-access address=0.0.0.0/0
-```
+8. Sekarang Laptop bisa akses router, PC tidak bisa akses router, keduanya bisa internet, lms.roscock.net tidak bisa dibuka, semua client & situs yang diakses terekam di address-list.
+   
+ ![m](DLDL3.PNG)
 
-Lalu tambahkan rule logging:
-
-```bash
-/ip firewall filter add chain=forward action=log log-prefix="FORWARD_TRAFFIC" 
-```
-
-Semua IP yang lewat akan masuk ke log dan bisa dilihat di **Log Mikrotik**.
-
-![m]()
-
-4. Chain Output – Batasi Koneksi Keluar Router
-
-Misalnya, agar router tidak mengakses situs tertentu:
-
-```bash
-/ip firewall filter add chain=output dst-address-list=blocked-sites action=drop
-```
 
 # pengujian 
 
