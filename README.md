@@ -40,7 +40,7 @@ tanggal 16 Agustus
 
 8. Sekarang Laptop bisa akses router, PC tidak bisa akses router, keduanya bisa internet, lms.roscock.net tidak bisa dibuka, semua client & situs yang diakses terekam di address-list.
    
- ![m](DLDL3.PNG)
+ ![m](DLDL3.PNG) 
 
 
 # pengujian 
